@@ -15,10 +15,8 @@ const Manutencao_receita = () => {
             setRevenue(lista.data);
         }catch(error){
             alert(`Erro: ..Não foi possível obter os dados: ${error}`);
-        }
+        }                                     
     }
-
-
 //define o método que será executado assim que o componente
 // for renderizado
 useEffect(() => {
@@ -27,7 +25,7 @@ useEffect(() => {
 
 const filtrarLista = async (campos) => {
     try{
-        const lista = await api.get(`/revenue/filtro${campos.palavra}`);
+        const lista = await api.get(`/revenue/filtro/${campos.palavra}`);
         lista.data.length
         ? setRevenue(lista.data)
         : alert("Não há receita cadastradas com a palavra chave pesquisada");
@@ -42,7 +40,7 @@ const excluir = async(id,titulo) => {
     }
     try{
         console.log("id é:"+id)
-        await api.delete(`revenue/${id}`);
+        await api.delete(`revenue/deleteRevenue/${id}`);
         //formar uma nova lista de tarefas sem a tarefa que foi excluida
         setRevenue(revenue.filter(Revenue => revenue.id !== id));
         location.reload();
@@ -60,17 +58,17 @@ const alterar = async (id,name,index) => {
     }
     try{//captura os erros 
         //chamando o backend e passando os dados
-        await api.put(`revenue/updateRevenue/${id}`,{name: novoStatus});
+        await api.put(`/revenue/updateRevenue/${id}`,{name: novoStatus});
         
         const RevenueUpdate = [...revenue];
         const RevenueIndex = RevenueUpdate.find(Revenue => Revenue.id === id);
         console.log("indice da receita: "+RevenueIndex);
-        RevenueUpdated[RevenueIndex.id].name = novoStatus;
-        setRevenue(RevenueUpdated);
+        RevenueUpdate[RevenueIndex.id].name = novoStatus;
+        setRevenue(RevenueUpdate);
         obterLista();
         location.reload();
     }catch(error){
-        alert(`Erro: ..Não foi possível alterar a tarefa ${titulo}: ${error}`);
+        alert(`Erro: ..Não foi possível alterar a tarefa ${name}: ${error}`);
     }
 }
 
@@ -83,9 +81,9 @@ const alterar = async (id,name,index) => {
             <div className="col-sm-5">
                 <form onSubmit={handleSubmit(filtrarLista)}>
                     <div className="input-group mt-3">
-                        <input type="text" className="form-control" placeholder="Titulo" required {...register("palavra")} />
-                        <input type="submit" class="btn btn-outline-primary" value="Pesquisar" />
-                        <input type="button" class="btn btn-outline-danger" value="Todas asReceitas" onClick={()=>{reset({palavra:""});obterLista();}}/>
+                        <input type="text"className="form-control" placeholder="Titulo" required {...register("palavra")} />
+                        <input type="submit"className="btn btn-outline-primary" value="Pesquisar" />
+                        <input type="button"className="btn btn-outline-danger" value="Todas asReceitas" onClick={()=>{reset({palavra:""});obterLista();}}/>
                     </div>
                 </form>
             </div>

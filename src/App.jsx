@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider, useAuth } from './components/AuthProvider';
 import Cadastrar_Usuario from './components/Cadastrar_usuario';
 import Cadastrar_receita from './components/Cadastrar_receita';
-import Manutencao_receita from './components/manutencao_receita';
+import Manutencao_receita from './components/Manutencao_Receita';
 
 const ProtectedRoute = ({ children }) => {
   const { autenticado } = useAuth();

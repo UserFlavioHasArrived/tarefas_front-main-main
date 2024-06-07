@@ -9,6 +9,7 @@ const Cadastrar_Usuario = () => {
   const salvar = async (campos) => {
     try {
       const response = await api.post("/users/createUsers", campos);
+      const {register, handleSubmit, reset} = useForm();
       setAviso(`Usuário cadastrado com sucesso!"`);
       reset();
     } catch (error) {
@@ -57,7 +58,7 @@ const Cadastrar_Usuario = () => {
                    
           <input
             type="submit"
-            class="btn btn-outline-primary mt-3"
+            className="btn btn-outline-primary mt-3"
             value="Salvar"
           />
           <input
@@ -70,6 +71,7 @@ const Cadastrar_Usuario = () => {
       </div>
     </div>
   );
+  
 };
 
 export default Cadastrar_Usuario;
